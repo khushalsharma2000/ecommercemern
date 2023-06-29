@@ -127,9 +127,11 @@ app.use((req, res, next) => {
 });
 
 mongoose
-  .connect(MONGODB_URI)
-  .then(result => {
-    app.listen(process.env.PORT || 3000);
+  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+  .then(() => {
+    app.listen(process.env.PORT || 3000, () => {
+      console.log('Server started on port 3000');
+    });
   })
   .catch(err => {
     console.log(err);
